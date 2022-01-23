@@ -8,6 +8,19 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    # volumes:
-      # - ./db/raw_data:/data
-      # - ./db/sql_scripts:/docker-entrypoint-initdb.d/
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  api:
+    image: node:16
+    command: sh -c "npm install && npm run start"
+    ports:
+      - ${SERVER_PORT}:4000
+    env_file: .env
+    environment:
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: db
+    working_dir: /server
+    depends_on:
+      - db
+    volumes:
+      - ./server:/server

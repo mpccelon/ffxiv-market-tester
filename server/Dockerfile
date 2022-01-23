@@ -1,0 +1,3 @@
+FROM node:16
+WORKDIR /server
+EXPOSE 4000
