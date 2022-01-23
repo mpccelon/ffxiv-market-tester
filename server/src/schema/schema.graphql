@@ -1,0 +1,40 @@
+type Query {
+    info: String!
+    feed: [Link!]!
+    # Fetch a single link by its `id`
+    link(id: ID!): Link
+    items: [Item]!
+}
+
+type Mutation {
+    post(url: String!, description: String!): Link!
+    # Update a link
+    updateLink(id: ID!, url: String, description: String): Link
+    # Delete a link
+    deleteLink(id: ID!): Link
+}
+
+type Link {
+    id: ID!
+    description: String!
+    url: String!
+}
+
+type Item {
+    id: ID!
+    name: String!
+    is_craftable: Boolean!
+}
+
+type Recipe {
+    id: ID!
+    result_item_id: Item!
+    ingredients: [Ingredient]!
+    yield: Int!
+}
+
+type Ingredient {
+    id: ID!
+    item: Item!
+    quantity: Int!
+}
