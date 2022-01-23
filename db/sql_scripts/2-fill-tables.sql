@@ -1,0 +1,1 @@
+COPY base_item FROM '/data/base_item.csv' DELIMITER ',' CSV HEADER;
