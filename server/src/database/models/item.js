@@ -10,17 +10,26 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // define association here      
+      this.hasMany(models.Recipe, {
+        foreignKey: 'result_item_id'
+      });
+      models.Recipe.belongsTo(this);
+
+      this.hasMany(models.Ingredient, {
+        foreignKey: 'item_id'
+      });
+      models.Ingredient.belongsTo(this);
     }
   }
   Item.init({
     name: {
-      type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      type: DataTypes.STRING
     },
     is_craftable: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      type: DataTypes.BOOLEAN
     }
   }, {
     sequelize,

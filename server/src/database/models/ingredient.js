@@ -14,11 +14,21 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ingredient.init({
-    item_id: DataTypes.INTEGER,
-    quantity: DataTypes.INTEGER
+    recipe_id: {
+      allowNull: false,
+      type: DataTypes.INTEGER      
+    },
+    item_id: {
+      allowNull: false,
+      type: DataTypes.INTEGER      
+    },
+    quantity: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    }
   }, {
     sequelize,
-    modelName: 'ingredient',
+    modelName: 'Ingredient',
   });
   return ingredient;
 };
