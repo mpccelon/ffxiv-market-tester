@@ -1,4 +1,4 @@
-console.log(process.env)
+// console.log(process.env)
 module.exports = {
   "development": {
     "username": process.env.POSTGRES_USER,

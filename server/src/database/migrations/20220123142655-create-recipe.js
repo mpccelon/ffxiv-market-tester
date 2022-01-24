@@ -15,14 +15,16 @@ module.exports = {
       yield: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        defaultValue: 3
+        defaultValue: 1
       },
       createdAt: {
         allowNull: false,
+        defaultValue: new Date(),
         type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
+        defaultValue: new Date(),
         type: Sequelize.DATE
       }
     });

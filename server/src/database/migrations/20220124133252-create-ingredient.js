@@ -10,7 +10,7 @@ module.exports = {
       },
       recipe_id: {
         allowNull: false,
-        type: DataTypes.INTEGER      
+        type: Sequelize.INTEGER
       },
       item_id: {
         allowNull: false,
@@ -23,10 +23,12 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
+        defaultValue: new Date(),
         type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
+        defaultValue: new Date(),
         type: Sequelize.DATE
       }
     });
