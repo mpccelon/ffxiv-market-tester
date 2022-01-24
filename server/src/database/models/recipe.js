@@ -12,12 +12,20 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.User, {
         through: models.SavedRecipe,
-        foreignKey: 'recipe_id'
+        foreignKey: 'recipe_id',
+        otherKey: 'user_id',
+        as: 'user'
       });
+
       this.hasMany(models.Ingredient, {
-        foreignKey: 'recipe_id'
+        foreignKey: 'recipe_id',
+        as: 'ingredients'
       });
-      models.Ingredient.belongsTo(this);
+
+      this.belongsTo(models.Item, {
+        foreignKey: 'result_item_id',
+        as: 'result_item'
+      });
     }
   }
   Recipe.init({

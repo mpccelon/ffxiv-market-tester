@@ -31,4 +31,4 @@ POSTGRES_PASSWORD={...}
 **TODO**: set up docker-compose to do the seeding automatically only once
 4. Access API at `http://localhost:4000` ([Apollo Sandbox link](https://studio.apollographql.com/sandbox/explorer?endpoint=http%3A%2F%2Flocalhost%3A4000%2F))
 5. Run tests with `npm run tests`
-**TODO**: Add more tests. only basic createUser, login, and getUsers with/without token integration/functional tests have been added.
+**TODO**: Add more tests (input/output validation, unit tests, etc.). only basic createUser, login, and getUsers with/without token integration/functional tests have been added.

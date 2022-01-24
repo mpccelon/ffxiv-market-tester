@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.Recipe, {
         through: models.SavedRecipe,
-        foreignKey: 'user_id'
+        foreignKey: 'user_id',
+        otherKey: 'recipe_id',
+        as: 'recipes'
       });
     }
   }

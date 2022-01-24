@@ -14,12 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Recipe, {
         foreignKey: 'result_item_id'
       });
-      models.Recipe.belongsTo(this);
 
       this.hasMany(models.Ingredient, {
         foreignKey: 'item_id'
       });
-      models.Ingredient.belongsTo(this);
     }
   }
   Item.init({
@@ -30,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     is_craftable: {
       allowNull: false,
       type: DataTypes.BOOLEAN
+    },
+    market_price: {
+      allowNull: true,
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

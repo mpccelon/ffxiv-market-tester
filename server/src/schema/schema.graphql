@@ -10,7 +10,7 @@ input UserFilter {
 type User {
     id: ID!
     username: String!
-    saved_recipes: [Recipe!]
+    recipes: [Recipe!]
 }
 
 type AuthToken {
@@ -36,7 +36,7 @@ type Ingredient {
 
 type Recipe {
     id: ID!
-    result_item_id: Item!
+    result_item: Item!
     ingredients: [Ingredient!]!
     yield: Int!
 }
@@ -48,11 +48,12 @@ type Query {
     # Get Items
     getItems(filter: ItemFilter, pagination: Pagination, fetchMarketPrices: Boolean): [Item!]!
 
-    # Get Saved Recipes
+    # Get Saved Recipes (for currently logged in user)
     getSavedRecipes(pagination: Pagination, fetchMarketPrices: Boolean): [Recipe!]!
 
     # Get recipe details
-    getRecipe(recipe_id: ID!, fetchMarketPrices: Boolean): Recipe!
+    getRecipeFromId(recipe_id: ID!, fetchMarketPrices: Boolean): Recipe!
+    getRecipesFromItem(item_id: ID!, fetchMarketPrices: Boolean): [Recipe!]!
 }
 
 type Mutation {
@@ -64,7 +65,7 @@ type Mutation {
     # user login
     login (username: String!, password: String!): AuthToken!
 
-    # recipe
-    addRecipe(id: ID!, recipe_id: ID!): User
-    removeRecipe(id: ID!, recipe_id: ID!): User
+    # recipe (for currently logged in user)
+    saveRecipe(recipe_id: ID!): User
+    removeSavedRecipe(recipe_id: ID!): User
 }

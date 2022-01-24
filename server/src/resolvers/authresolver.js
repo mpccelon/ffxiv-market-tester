@@ -46,6 +46,7 @@ const AuthResolver = {
                     password: password
                 });
                 const token = jsonwebtoken.sign({
+                    id: user.id,
                     username: username
                 }, process.env.JWT_SECRET);
 
@@ -75,6 +76,7 @@ const AuthResolver = {
                 }
 
                 const token = jsonwebtoken.sign({
+                    id: user.id,
                     username: username
                 }, process.env.JWT_SECRET);
 

@@ -15,6 +15,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
+      market_price: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         defaultValue: new Date(),
