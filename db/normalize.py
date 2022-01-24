@@ -53,12 +53,11 @@ for item_id, name in item_data.items():
     # for id in not_in_market:
     #     print(f'NOT IN MARKET: \'{item_data[str(id)]["en"]}\' used for \'{name["en"]}\'')
 
-print(len(base_item))
 
 # write to csv
+base_item_json = []
 normalized_directory = Path(script_directory / "../server/src/database/seed_json/")
 with open(normalized_directory / 'base_item.json', 'w') as json_file:
-    base_item_json = []
     for key, value in base_item.items():
         base_item_json.append({
             "id": key,
@@ -66,15 +65,41 @@ with open(normalized_directory / 'base_item.json', 'w') as json_file:
             "is_craftable": value["is_craftable"]
         })
     json.dump(base_item_json, json_file)
+    print(f'Added base_item.json to {normalized_directory.absolute()}')
 
 
-# market_item_recipe table
+# recipe table
 # - recipe_id
 # - result_item_id
 # - yield
-# base_market_item_recipe = dict()
-# for item_id in market_items:
-#     for item_id in 
-#     base_market_item_recipe[item_id] = {
-#         ""
-#     }
+base_recipe_json = []
+with open(normalized_directory / 'base_recipes.json', 'w') as json_file:
+    for item in base_item_json:
+        if item["is_craftable"]:
+            for recipe in recipe_data[str(item["id"])]:
+                base_recipe_json.append({
+                    "id": recipe["id"],
+                    "result_item_id": item["id"],
+                    "yield":  recipe["yields"]
+                })
+    json.dump(base_recipe_json, json_file)
+    print(f'Added base_recipe.json to {normalized_directory.absolute()}')
+
+
+# ingredients table
+# - recipe_id
+# - item_id
+# - quantity
+base_ingredients_json = []
+with open(normalized_directory / 'base_ingredients.json', 'w') as json_file:
+    for item in base_item_json:
+        if item["is_craftable"]:
+            for recipe in recipe_data[str(item["id"])]:
+                for ingredient in recipe["ingredients"]:
+                    base_ingredients_json.append({
+                        "recipe_id": recipe["id"],
+                        "item_id": ingredient["id"],
+                        "quantity":  ingredient["amount"]
+                    })
+    json.dump(base_ingredients_json, json_file)
+    print(f'Added base_ingredients.json to {normalized_directory.absolute()}')

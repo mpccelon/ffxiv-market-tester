@@ -4,8 +4,8 @@ input Pagination {
 }
 
 input UserFilter {
-    id: ID!
-    username: String!
+    id: ID
+    username: String
 }
 type User {
     id: ID!
@@ -13,14 +13,25 @@ type User {
     saved_recipes: [Recipe!]
 }
 
+type AuthToken {
+    token: String!
+    user: User!
+}
+
 input ItemFilter {
     name: String!
-    ids: [ID!]
 }
 type Item {
     id: ID!
     name: String!
-    is_craftable: Boolean!    
+    is_craftable: Boolean!
+    market_price: Int
+}
+
+type Ingredient {
+    id: ID!
+    item: Item!
+    quantity: Int!
 }
 
 type Recipe {
@@ -30,32 +41,30 @@ type Recipe {
     yield: Int!
 }
 
-type Ingredient {
-    id: ID!
-    item: Item!
-    quantity: Int!
-}
-
-type AuthToken {
-    token: String!
-    user: User!
-}
-
 type Query {
     # User
     getUsers(filter: UserFilter, pagination: Pagination): [User!]!
 
-    # Get Item
-    items(filter: ItemFilter, pagination: Pagination): [Item!]!    
+    # Get Items
+    getItems(filter: ItemFilter, pagination: Pagination, fetchMarketPrices: Boolean): [Item!]!
+
+    # # Get Saved Recipes
+    getSavedRecipes(pagination: Pagination, fetchMarketPrices: Boolean): [Recipe!]!
+
+    # # Get recipe details
+    getRecipe(recipe_id: ID!, fetchMarketPrices: Boolean): Recipe!
 }
 
 type Mutation {
     # user
     createUser(username: String!, password: String!): AuthToken!
-    updateUser(id: ID!, username: String!, password: String!): User
+    updateUser(id: ID!, username: String, password: String): User
     deleteUser(id: ID!): Boolean!
+
     # user login
     login (username: String!, password: String!): AuthToken!
 
-    # item
+    # recipe
+    addRecipe(id: ID!, recipe_id: ID!): User
+    removeRecipe(id: ID!, recipe_id: ID!): User
 }

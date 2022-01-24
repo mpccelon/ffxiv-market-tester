@@ -27,16 +27,17 @@ process.on('db-auth-finished', () => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        dataSources: () => {
-            universalisAPI: new UniversalisAPI()
-        },
+        // dataSources: () => {
+        //     universalisAPI: new UniversalisAPI()
+        // },
         context: async ({ req }) => {
             const token = req.get('Authorization') || ''
             return {
                 db: db,
                 user: getUser(token.replace('Bearer', ''))
             }
-        }
+        },
+        introspection: true
     });
 
     server.listen()
@@ -47,6 +48,7 @@ process.on('db-auth-finished', () => {
 
 (async () => {
     try {
+        // await db.sequelize.sync({force: true})
         await db.sequelize.sync()
         console.log('Connection has been established successfully.');
         process.emit('db-auth-finished')

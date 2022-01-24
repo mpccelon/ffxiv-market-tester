@@ -1,16 +1,16 @@
 const jsonwebtoken = require('jsonwebtoken')
 const ItemResolver = require('./itemresolver.js')
-const UserResolver = require('./userresolver.js')
+const AuthResolver = require('./authresolver.js')
 require('dotenv').config()
 
 const resolvers = {
     Query: {
         ...ItemResolver.Query,
-        ...UserResolver.Query
+        ...AuthResolver.Query
     },
     Mutation: {
         ...ItemResolver.Mutation,
-        ...UserResolver.Mutation
+        ...AuthResolver.Mutation
     }
 }
 
