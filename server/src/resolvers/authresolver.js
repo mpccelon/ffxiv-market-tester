@@ -34,7 +34,6 @@ const AuthResolver = {
     Mutation: {
         createUser: async (parent, { username, password }, { db }) => {
             try {
-                console.log("HELLO")
                 if (await db.User.findOne({
                     where: {
                         username: username
@@ -53,6 +52,7 @@ const AuthResolver = {
                 return {
                     token,
                     user: {
+                        id: user.id,
                         username: user.username
                     }
                 }
@@ -67,6 +67,8 @@ const AuthResolver = {
                 if (!user) {
                     throw new Error('No matching user');
                 }
+                console.log(user.password);
+                console.log(password);
                 const validPass = await db.User.checkPassword(password, user.password);
                 if (!validPass) {
                     throw new Error('Incorrect Password');

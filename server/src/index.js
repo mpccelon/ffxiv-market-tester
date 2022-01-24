@@ -40,7 +40,9 @@ process.on('db-auth-finished', () => {
         introspection: true
     });
 
-    server.listen()
+    server.listen({
+        port: process.env.SERVER_PORT
+    })
         .then(({ url }) =>
             console.log(`Server is running on ${url}`)
         );

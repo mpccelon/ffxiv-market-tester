@@ -46,7 +46,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   User.checkPassword = async (password, hash) => {
-    return await bcrypt.compareSync(password, hash);
+    let result = await bcrypt.compareSync(password, hash);
+    console.log(result);
+    return result;
+    // return await bcrypt.compareSync(password, hash);
   }
   return User;
 };

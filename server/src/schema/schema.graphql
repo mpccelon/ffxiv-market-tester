@@ -48,10 +48,10 @@ type Query {
     # Get Items
     getItems(filter: ItemFilter, pagination: Pagination, fetchMarketPrices: Boolean): [Item!]!
 
-    # # Get Saved Recipes
+    # Get Saved Recipes
     getSavedRecipes(pagination: Pagination, fetchMarketPrices: Boolean): [Recipe!]!
 
-    # # Get recipe details
+    # Get recipe details
     getRecipe(recipe_id: ID!, fetchMarketPrices: Boolean): Recipe!
 }
 
