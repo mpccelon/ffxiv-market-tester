@@ -4,9 +4,10 @@ require('dotenv').config({
 })
 
 const { ApolloServer } = require('apollo-server');
-const resolvers = require('./resolvers/resolver')
-const typeDefs = require('./schema/schema')
-const jwt = require('jsonwebtoken')
+const resolvers = require('./resolvers/resolver');
+const typeDefs = require('./schema/schema');
+const jwt = require('jsonwebtoken');
+const UniversalisAPI = require('./universalis/universalis');
 
 // SEQUELIZE SERVER
 const db = require('./database/models');
@@ -26,6 +27,9 @@ process.on('db-auth-finished', () => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
+        dataSources: () => {
+            universalisAPI: new UniversalisAPI()
+        },
         context: async ({ req }) => {
             const token = req.get('Authorization') || ''
             return {

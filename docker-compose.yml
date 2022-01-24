@@ -24,3 +24,6 @@ services:
       - db
     volumes:
       - ./server:/server
+
+volumes:
+  db-data:

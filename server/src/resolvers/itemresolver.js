@@ -1,9 +1,14 @@
-const models = require('../database/models')
-
 const ItemResolver = {
     Query: {
-        items: (parent, args, context) => {
-            return context.db.Item.findAll({ limit: 10 });
+        getItems: async (parent, args, {db, user}) => {
+            try {
+                if(!user)
+                    throw new Error('You are not authenticated')
+                
+                return db.Item.findAll({ limit: 10 });
+            } catch (error) {
+                throw new Error(error.message)
+            }
         }
     },
     Mutation: {

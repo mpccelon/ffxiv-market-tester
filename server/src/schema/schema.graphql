@@ -1,35 +1,32 @@
-type Query {
-    info: String!
-    feed: [Link!]!
-    # Fetch a single link by its `id`
-    link(id: ID!): Link
-    items: [Item]!
+input Pagination {
+    page: Int!
+    items: Int!
 }
 
-type Mutation {
-    post(url: String!, description: String!): Link!
-    # Update a link
-    updateLink(id: ID!, url: String, description: String): Link
-    # Delete a link
-    deleteLink(id: ID!): Link
-}
-
-type Link {
+input UserFilter {
     id: ID!
-    description: String!
-    url: String!
+    username: String!
+}
+type User {
+    id: ID!
+    username: String!
+    saved_recipes: [Recipe!]
 }
 
+input ItemFilter {
+    name: String!
+    ids: [ID!]
+}
 type Item {
     id: ID!
     name: String!
-    is_craftable: Boolean!
+    is_craftable: Boolean!    
 }
 
 type Recipe {
     id: ID!
     result_item_id: Item!
-    ingredients: [Ingredient]!
+    ingredients: [Ingredient!]!
     yield: Int!
 }
 
@@ -37,4 +34,28 @@ type Ingredient {
     id: ID!
     item: Item!
     quantity: Int!
+}
+
+type AuthToken {
+    token: String!
+    user: User!
+}
+
+type Query {
+    # User
+    getUsers(filter: UserFilter, pagination: Pagination): [User!]!
+
+    # Get Item
+    items(filter: ItemFilter, pagination: Pagination): [Item!]!    
+}
+
+type Mutation {
+    # user
+    createUser(username: String!, password: String!): AuthToken!
+    updateUser(id: ID!, username: String!, password: String!): User
+    deleteUser(id: ID!): Boolean!
+    # user login
+    login (username: String!, password: String!): AuthToken!
+
+    # item
 }
