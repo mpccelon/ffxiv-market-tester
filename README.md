@@ -41,3 +41,4 @@ POSTGRES_PASSWORD={...}
     - To update all items, the model has to be "flattened" into an array of items
     - Once all item prices have been updated, we need to re-run the query
     - Basically doubles the query time
+- Set up jwt token invalidation on user delete
