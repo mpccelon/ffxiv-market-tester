@@ -3,8 +3,10 @@ Simple api server to teach myself GraphQL + Dockerization, and to re-orient myse
 
 Basic Functionality is modeled after [GarlandTools crafting lists](https://garlandtools.org/db):
 - A user can save/keep track of FFXIV item recipes 
-- A recipe is composed of multiple ingredients
-- The user can also fetch the current in-game market price for these ingredients via the [Universalis API](https://universalis.app/docs/index.html)
+- A recipe is composed of multiple ingredients (item + quantity)
+- A user can also browse through items
+- The user can also fetch the current in-game market price for items/ingredients via the [Universalis API](https://universalis.app/docs/index.html)
+- Market prices are saved in the db, so it will always return the most recently fetched price until it is re-fetched from the server.
 # Current Framework
 ```
 - db                        // some helper scripts/data used to seed the database
@@ -35,7 +37,8 @@ POSTGRES_PASSWORD={...}
 - Add more tests (input/output validation, unit tests, etc.).
     - only basic createUser, login, and getUsers with/without token tests have been added.
 - Containerize/seperate authentication/authorization to its own separate image/endpoint
-- Set up a frontend client for actual use
+- Set up a frontend client for actual use (the server does not "calculate" the total cost of a recipe, we can put that into the frontend client)
+- Expand the "saved recipe" model so the user can "expand" recipes continuously and not just at one level.
 - Do the seeding from inside the server docker container
 - 3rd Party API calls are costly
     - To update all items, the model has to be "flattened" into an array of items
