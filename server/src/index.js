@@ -27,9 +27,11 @@ process.on('db-auth-finished', () => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        // dataSources: () => {
-        //     universalisAPI: new UniversalisAPI()
-        // },
+        dataSources: () => {
+            return {
+                universalisAPI: new UniversalisAPI()
+            };            
+        },
         context: async ({ req }) => {
             const token = req.get('Authorization') || ''
             return {

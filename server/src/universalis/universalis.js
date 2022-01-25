@@ -9,6 +9,7 @@ class UniversalisAPI extends RESTDataSource {
   }
 
   async getItemListings(world, ids) {
+    console.log(`${encodeURIComponent(world)}/${encodeURIComponent(ids.join(','))}`)
     // Send a GET request to the specified endpoint
     return this.get(`${encodeURIComponent(world)}/${encodeURIComponent(ids.join(','))}`);
   }
